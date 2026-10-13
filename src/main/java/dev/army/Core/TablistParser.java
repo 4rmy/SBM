@@ -3,7 +3,6 @@ package dev.army.Core;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 
-import java.util.Arrays;
 import java.util.stream.Stream;
 
 public class TablistParser {

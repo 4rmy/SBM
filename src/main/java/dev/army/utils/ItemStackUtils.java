@@ -8,7 +8,6 @@ import net.minecraft.world.item.TooltipFlag;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Locale;
 
 public class ItemStackUtils {
     public static @Nullable Rarity getRarity(ItemStack stack) {

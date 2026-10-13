@@ -3,9 +3,7 @@ package dev.army.Farming;
 import com.mojang.blaze3d.PrimitiveTopology;
 import com.mojang.blaze3d.pipeline.BlendFunction;
 import com.mojang.blaze3d.pipeline.ColorTargetState;
-import com.mojang.blaze3d.pipeline.DepthStencilState;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
-import com.mojang.blaze3d.platform.CompareOp;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.army.Core.TablistParser;
@@ -13,7 +11,6 @@ import dev.army.SkyblockMod;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionContext;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderContext;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.rendertype.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
@@ -22,15 +19,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
-import static net.minecraft.client.renderer.RenderPipelines.LINES_SNIPPET;
 import static net.minecraft.client.renderer.RenderPipelines.MATRICES_FOG_SNIPPET;
 
 public class FarmingRenderer {
-    private static final Minecraft mc = Minecraft.getInstance();
-
     public static final RenderPipeline.Snippet NO_DEPTH_LINES_SNIPPET =
             RenderPipeline.builder(MATRICES_FOG_SNIPPET)
                     .withVertexShader("core/rendertype_lines")
@@ -41,6 +34,7 @@ public class FarmingRenderer {
                     .withPrimitiveTopology(PrimitiveTopology.LINES)
                     .withDepthStencilState(Optional.empty())
                     .buildSnippet();
+    private static final Minecraft mc = Minecraft.getInstance();
     private static final RenderPipeline NO_DEPTH_LINES_PIPE = RenderPipeline
             .builder(NO_DEPTH_LINES_SNIPPET)
             .withLocation(SkyblockMod.id("no_depth_lines"))
@@ -52,8 +46,8 @@ public class FarmingRenderer {
                     .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
                     .createRenderSetup());
 
-    private List<VoxelShape> barnShapes = new ArrayList<>();
-    private List<VoxelShape> pestShapes = new ArrayList<>();
+    private final List<VoxelShape> barnShapes = new ArrayList<>();
+    private final List<VoxelShape> pestShapes = new ArrayList<>();
 
     public void plotBorderExtraction(LevelExtractionContext ctx) {
         if (!TablistParser.getArea().equals("garden")) return;

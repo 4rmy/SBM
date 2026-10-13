@@ -6,7 +6,6 @@ import dev.army.Core.KeyMappingController;
 import dev.army.Farming.FarmingCore;
 import dev.army.Huds.InventoryPreview;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.minecraft.client.DeltaTracker;
@@ -15,28 +14,23 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SkyblockMod implements ModInitializer {
-    public static ItemStack s1 = null;
-    public static ItemStack s2 = null;
-    public static ItemStack s3 = null;
-    public static ItemStack s4 = null;
-
     public static final String MOD_ID = "skyblockmod";
-
     // This logger is used to write text to the console and the log file.
     // It is considered best practice to use your mod id as the logger's name.
     // That way, it's clear which mod wrote info, warnings, and errors.
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-
     public static final Minecraft mc = Minecraft.getInstance();
-
+    public static ItemStack s1 = null;
+    public static ItemStack s2 = null;
+    public static ItemStack s3 = null;
+    public static ItemStack s4 = null;
     public static Slot hoveredSlot;
 
-    private static boolean wasF2Down = false;
+    private static final boolean wasF2Down = false;
 
     private static void extract(GuiGraphicsExtractor guiGraphicsExtractor, DeltaTracker deltaTracker) {
         // TODO: AUTO FISHING MOD

@@ -3,19 +3,12 @@ package dev.army.ChocolateFactory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.ItemLike;
-import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.PriorityQueue;
 
 public class ChocoFactoryController {
     private static final Minecraft mc = Minecraft.getInstance();
@@ -45,21 +38,21 @@ public class ChocoFactoryController {
         for (Slot s : screen.getMenu().slots.subList(28, 35)) { // just the rabits
             if (s.getItem().isEmpty()) continue;
             List<String> tooltip = s.getItem().getTooltipLines(
-                    Item.TooltipContext.EMPTY,
-                    mc.player,
-                    TooltipFlag.NORMAL
-            ).stream()
-                    .dropWhile(l->!l.getString().contains("---"))
+                            Item.TooltipContext.EMPTY,
+                            mc.player,
+                            TooltipFlag.NORMAL
+                    ).stream()
+                    .dropWhile(l -> !l.getString().contains("---"))
                     .skip(2)
-                    .map(l->l.getString().strip())
-                    .filter(l->l.contains("Chocolate"))
+                    .map(l -> l.getString().strip())
+                    .filter(l -> l.contains("Chocolate"))
                     .toList();
             if (!tooltip.isEmpty()) {
                 employees.add(
                         new Employee(
                                 s,
-                                s.index-27,
-                                Integer.parseInt(String.join("",tooltip.getLast().split("\\s")[0].split(",")))
+                                s.index - 27,
+                                Integer.parseInt(String.join("", tooltip.getLast().split("\\s")[0].split(",")))
                         )
                 );
             }

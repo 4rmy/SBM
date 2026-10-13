@@ -14,7 +14,6 @@ import net.minecraft.world.phys.Vec3;
 import java.util.HashMap;
 
 public class FarmingCore {
-    private static final Minecraft mc = Minecraft.getInstance();
     public static final HashMap<Integer, Cord> grid = new HashMap<>() {{
         put(21, new Cord(0, 0)); // top left plot
         put(13, new Cord(1, 0));
@@ -46,6 +45,7 @@ public class FarmingCore {
         put(20, new Cord(3, 4));
         put(24, new Cord(4, 4)); // bottom right plot
     }};
+    private static final Minecraft mc = Minecraft.getInstance();
     public static FarmingCore instance;
     private final FarmingRenderer renderer;
 

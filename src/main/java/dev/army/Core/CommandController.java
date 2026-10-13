@@ -1,7 +1,6 @@
 package dev.army.Core;
 
 import dev.army.Farming.FarmingCore;
-import dev.army.Farming.FarmingTablist;
 import dev.army.SkyblockMod;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommands;
@@ -10,7 +9,6 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class CommandController {
