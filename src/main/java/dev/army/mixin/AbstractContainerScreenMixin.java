@@ -1,0 +1,65 @@
+package dev.army.mixin;
+
+import dev.army.SkyblockMod;
+import dev.army.utils.ItemStackUtils;
+import dev.army.utils.Rarity;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(AbstractContainerScreen.class)
+public abstract class AbstractContainerScreenMixin {
+
+    @Unique
+    private final int border_alpha = 0xaa000000;
+    @Unique
+    private final int inner_alpha = 0x55000000;
+
+    @Shadow
+    protected abstract boolean isHovering(Slot slot, double xm, double ym);
+
+    @Inject(method = "extractSlot(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/inventory/Slot;II)V", at = @At("HEAD"))
+    private void smb$onExtractSlot(GuiGraphicsExtractor graphics, Slot slot, int mouseX, int mouseY, CallbackInfo ci) {
+        if (slot.isActive() && this.isHovering(slot, mouseX, mouseY)) {
+            SkyblockMod.hoveredSlot = slot;
+        }
+
+        ItemStack stack = slot.getItem();
+
+        if (stack.isEmpty()) {
+            return;
+        }
+
+        Rarity r = ItemStackUtils.getRarity(stack);
+        if (r != null) {
+            // top
+            graphics.fill(slot.x, slot.y, slot.x + 16, slot.y + 1, r.color() | border_alpha);
+            // bottom
+            graphics.fill(slot.x, slot.y + 15, slot.x + 16, slot.y + 16, r.color() | border_alpha);
+            // left
+            graphics.fill(slot.x, slot.y + 1, slot.x + 1, slot.y + 15, r.color() | border_alpha);
+            // right
+            graphics.fill(slot.x + 15, slot.y + 1, slot.x + 16, slot.y + 15, r.color() | border_alpha);
+            graphics.fill(slot.x + 1, slot.y + 1, slot.x + 15, slot.y + 15, r.color() | inner_alpha);
+        }
+    }
+
+    @Inject(method = "extractFloatingItem", at = @At("HEAD"))
+    private void smb$onExtractFloatingItem(GuiGraphicsExtractor graphics, ItemStack stack, int x, int y, String text, CallbackInfo ci) {
+        if (stack.isEmpty()) {
+            return;
+        }
+
+        Rarity r = ItemStackUtils.getRarity(stack);
+        if (r != null) {
+            graphics.fill(x, y, x + 16, y + 16, r.color());
+        }
+    }
+}
