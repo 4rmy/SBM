@@ -1,4 +1,4 @@
-package dev.army.mixin;
+package dev.army.Mixins;
 
 import dev.army.utils.ItemStackUtils;
 import dev.army.utils.Rarity;

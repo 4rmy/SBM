@@ -1,4 +1,4 @@
-package dev.army.Farming;
+package dev.army.Features.Farming;
 
 import dev.army.Core.TablistParser;
 

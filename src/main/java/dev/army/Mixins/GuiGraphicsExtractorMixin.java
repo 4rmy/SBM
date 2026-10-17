@@ -1,6 +1,6 @@
-package dev.army.mixin;
+package dev.army.Mixins;
 
-import dev.army.Core.GuiGraphicsExtractorExt;
+import dev.army.Core.render.GuiGraphicsExtractorExt;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static dev.army.SkyblockMod.mc;
+import static dev.army.SBM.mc;
 
 @Mixin(GuiGraphicsExtractor.class)
 public abstract class GuiGraphicsExtractorMixin implements GuiGraphicsExtractorExt {

@@ -3,9 +3,9 @@
   "id": "skyblockmod",
   "version": "${version}",
   "name": "SkyblockMod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "Skyblock mod",
   "authors": [
-    "Me!"
+    "4rmy"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
@@ -16,7 +16,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "dev.army.SkyblockMod"
+      "dev.army.SBM"
     ]
   },
   "mixins": [
@@ -27,5 +27,6 @@
     "minecraft": "~26.2",
     "java": ">=25",
     "fabric-api": "*"
-  }
+  },
+  "accessWidener": "skyblockmod.classtweaker"
 }

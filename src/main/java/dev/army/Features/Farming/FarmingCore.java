@@ -1,8 +1,9 @@
-package dev.army.Farming;
+package dev.army.Features.Farming;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import dev.army.Core.HudController;
 import dev.army.Core.TablistParser;
-import dev.army.SkyblockMod;
+import dev.army.SBM;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionEvents;
@@ -50,7 +51,7 @@ public class FarmingCore {
     private final FarmingRenderer renderer;
 
     KeyMapping.Category FARMING_CAT = KeyMapping.Category.register(
-            SkyblockMod.id("farming_category")
+            SBM.id("farming_category")
     );
     KeyMapping setspawn = KeyMappingHelper.registerKeyMapping(
             new KeyMapping(
@@ -96,6 +97,7 @@ public class FarmingCore {
 
     public static void init() {
         instance = new FarmingCore();
+        HudController.registerObjective(new FarmingHud());
     }
 
     public static PosRange cordToPos(Cord c) {

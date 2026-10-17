@@ -1,6 +1,6 @@
 package dev.army.Core;
 
-import dev.army.Huds.HudObjective;
+import dev.army.Features.Huds.HudObjective;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 

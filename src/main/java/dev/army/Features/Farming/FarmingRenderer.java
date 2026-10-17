@@ -1,4 +1,4 @@
-package dev.army.Farming;
+package dev.army.Features.Farming;
 
 import com.mojang.blaze3d.PrimitiveTopology;
 import com.mojang.blaze3d.pipeline.BlendFunction;
@@ -7,7 +7,7 @@ import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.army.Core.TablistParser;
-import dev.army.SkyblockMod;
+import dev.army.SBM;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionContext;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderContext;
 import net.minecraft.client.Minecraft;
@@ -37,7 +37,7 @@ public class FarmingRenderer {
     private static final Minecraft mc = Minecraft.getInstance();
     private static final RenderPipeline NO_DEPTH_LINES_PIPE = RenderPipeline
             .builder(NO_DEPTH_LINES_SNIPPET)
-            .withLocation(SkyblockMod.id("no_depth_lines"))
+            .withLocation(SBM.id("no_depth_lines"))
             .build();
     private static final RenderType NO_DEPTH_LINES = RenderType.create(
             "lines_no_cull",

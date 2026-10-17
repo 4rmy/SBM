@@ -1,14 +1,14 @@
 package dev.army.Core;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import dev.army.SkyblockMod;
+import dev.army.SBM;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 
 public class KeyMappingController {
-    static KeyMapping.Category DEBUG_CATEGORY = new KeyMapping.Category(SkyblockMod.id("debug-category"));
+    static KeyMapping.Category DEBUG_CATEGORY = new KeyMapping.Category(SBM.id("debug-category"));
 
     static KeyMapping debug = KeyMappingHelper.registerKeyMapping(
             new KeyMapping(

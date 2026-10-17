@@ -1,4 +1,4 @@
-package dev.army.Core;
+package dev.army.Core.render;
 
 import net.minecraft.world.item.ItemStack;
 

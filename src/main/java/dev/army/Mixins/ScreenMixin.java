@@ -1,6 +1,6 @@
-package dev.army.mixin;
+package dev.army.Mixins;
 
-import dev.army.ChocolateFactory.ChocoFactoryController;
+import dev.army.Features.ChocolateFactory.ChocoFactoryController;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;

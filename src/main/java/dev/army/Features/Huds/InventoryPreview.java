@@ -1,6 +1,6 @@
-package dev.army.Huds;
+package dev.army.Features.Huds;
 
-import dev.army.Core.GuiGraphicsExtractorExt;
+import dev.army.Core.render.GuiGraphicsExtractorExt;
 import dev.army.utils.ItemStackUtils;
 import dev.army.utils.Rarity;
 import net.minecraft.client.DeltaTracker;

@@ -3,8 +3,9 @@ package dev.army;
 import dev.army.Core.CommandController;
 import dev.army.Core.HudController;
 import dev.army.Core.KeyMappingController;
-import dev.army.Farming.FarmingCore;
-import dev.army.Huds.InventoryPreview;
+import dev.army.Features.Farming.FarmingCore;
+import dev.army.Features.Huds.InventoryPreview;
+import dev.army.Features.Mining.MiningCore;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
@@ -17,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SkyblockMod implements ModInitializer {
+public class SBM implements ModInitializer {
     public static final String MOD_ID = "skyblockmod";
     // This logger is used to write text to the console and the log file.
     // It is considered best practice to use your mod id as the logger's name.
@@ -71,7 +72,7 @@ public class SkyblockMod implements ModInitializer {
         // attach to hud rendering
         HudElementRegistry.attachElementBefore(
                 VanillaHudElements.CHAT,
-                SkyblockMod.id("before_chat"),
+                SBM.id("before_chat"),
                 HudController::extractAll
         );
         HudController.registerObjective(new InventoryPreview());
@@ -84,6 +85,7 @@ public class SkyblockMod implements ModInitializer {
 
         // Farming Core init
         FarmingCore.init();
+        MiningCore.init();
 
         LOGGER.info("FINISHED SETTING UP");
     }

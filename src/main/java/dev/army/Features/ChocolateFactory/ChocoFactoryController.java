@@ -1,4 +1,4 @@
-package dev.army.ChocolateFactory;
+package dev.army.Features.ChocolateFactory;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;

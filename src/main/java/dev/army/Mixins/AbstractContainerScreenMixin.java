@@ -1,12 +1,16 @@
-package dev.army.mixin;
+package dev.army.Mixins;
 
-import dev.army.SkyblockMod;
+import dev.army.Features.Experimentation.ExperimentationCore;
+import dev.army.Features.Misc.CollectionsNumbers;
+import dev.army.SBM;
 import dev.army.utils.ItemStackUtils;
 import dev.army.utils.Rarity;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -25,18 +29,21 @@ public abstract class AbstractContainerScreenMixin {
     @Shadow
     protected abstract boolean isHovering(Slot slot, double xm, double ym);
 
+
+    @Shadow
+    @Final
+    protected Component playerInventoryTitle;
+
     @Inject(method = "extractSlot(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/inventory/Slot;II)V", at = @At("HEAD"))
     private void smb$onExtractSlot(GuiGraphicsExtractor graphics, Slot slot, int mouseX, int mouseY, CallbackInfo ci) {
-        if (slot.isActive() && this.isHovering(slot, mouseX, mouseY)) {
-            SkyblockMod.hoveredSlot = slot;
-        }
-
+        // handle all rarity highlighting
+        if (slot.isActive() && this.isHovering(slot, mouseX, mouseY))
+            SBM.hoveredSlot = slot;
         ItemStack stack = slot.getItem();
-
-        if (stack.isEmpty()) {
-            return;
-        }
-
+        if (!stack.isEmpty())
+            sbm$highlighStack(graphics, slot, stack);
+    }
+    private void sbm$highlighStack(GuiGraphicsExtractor graphics, Slot slot, ItemStack stack) {
         Rarity r = ItemStackUtils.getRarity(stack);
         if (r != null) {
             // top
@@ -50,6 +57,18 @@ public abstract class AbstractContainerScreenMixin {
             graphics.fill(slot.x + 1, slot.y + 1, slot.x + 15, slot.y + 15, r.color() | inner_alpha);
         }
     }
+
+    @Inject(method = "extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V", at = @At("HEAD"), cancellable = true)
+    private void sbm$onExtractState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
+        ExperimentationCore.preProcess(graphics, ci);
+    }
+
+    @Inject(method = "extractSlot(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/inventory/Slot;II)V", at = @At("TAIL"))
+    private void sbm$onExtractSlotTail(GuiGraphicsExtractor graphics, Slot slot, int mouseX, int mouseY, CallbackInfo ci) {
+        CollectionsNumbers.extractSlot(graphics, slot);
+        ExperimentationCore.extractSlot(graphics, slot);
+    }
+
 
     @Inject(method = "extractFloatingItem", at = @At("HEAD"))
     private void smb$onExtractFloatingItem(GuiGraphicsExtractor graphics, ItemStack stack, int x, int y, String text, CallbackInfo ci) {
