@@ -1,5 +1,6 @@
 package dev.army.Features.Farming;
 
+import dev.army.Core.BlockBreakTracker;
 import dev.army.Features.Huds.HudObjective;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -41,6 +42,14 @@ public class FarmingHud implements HudObjective {
                 mc.getWindow().getGuiScaledWidth() / 2 + 2,
                 mc.getWindow().getGuiScaledHeight() / 2 + 2,
                 0xFFFFFF00
+        );
+
+        graphics.text(
+                mc.font,
+                String.format("BPS: %.2f", BlockBreakTracker.getBPS()),
+                mc.getWindow().getGuiScaledWidth() / 2 + 2,
+                mc.getWindow().getGuiScaledHeight() / 2 + mc.font.lineHeight + 1,
+                0xFF4169E2
         );
     }
 }

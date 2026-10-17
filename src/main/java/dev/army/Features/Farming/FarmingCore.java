@@ -9,7 +9,6 @@ import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.HashMap;
@@ -46,14 +45,12 @@ public class FarmingCore {
         put(20, new Cord(3, 4));
         put(24, new Cord(4, 4)); // bottom right plot
     }};
-    private static final Minecraft mc = Minecraft.getInstance();
     public static FarmingCore instance;
-    private final FarmingRenderer renderer;
 
-    KeyMapping.Category FARMING_CAT = KeyMapping.Category.register(
+    private final KeyMapping.Category FARMING_CAT = KeyMapping.Category.register(
             SBM.id("farming_category")
     );
-    KeyMapping setspawn = KeyMappingHelper.registerKeyMapping(
+    private final KeyMapping setspawn = KeyMappingHelper.registerKeyMapping(
             new KeyMapping(
                     "key.skyblockmod.setspawn",
                     InputConstants.Type.MOUSE,
@@ -61,7 +58,7 @@ public class FarmingCore {
                     this.FARMING_CAT
             )
     );
-    KeyMapping warpgarden = KeyMappingHelper.registerKeyMapping(
+    private final KeyMapping warpgarden = KeyMappingHelper.registerKeyMapping(
             new KeyMapping(
                     "key.skyblockmod.warpgarden",
                     InputConstants.Type.MOUSE,
@@ -72,7 +69,7 @@ public class FarmingCore {
 
     public FarmingCore() {
         // rendering
-        renderer = new FarmingRenderer();
+        FarmingRenderer renderer = new FarmingRenderer();
 
         LevelExtractionEvents.END_EXTRACTION.register(renderer::plotBorderExtraction);
         LevelRenderEvents.BEFORE_GIZMOS.register(renderer::plotBorderRender);

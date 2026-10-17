@@ -2,7 +2,6 @@ package dev.army.Mixins;
 
 import dev.army.Features.Experimentation.ExperimentationCore;
 import dev.army.Features.Misc.CollectionsNumbers;
-import dev.army.SBM;
 import dev.army.utils.ItemStackUtils;
 import dev.army.utils.Rarity;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -21,32 +20,27 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(AbstractContainerScreen.class)
 public abstract class AbstractContainerScreenMixin {
 
-    @Unique
-    private final int border_alpha = 0xaa000000;
-    @Unique
-    private final int inner_alpha = 0x55000000;
-
-    @Shadow
-    protected abstract boolean isHovering(Slot slot, double xm, double ym);
-
-
     @Shadow
     @Final
     protected Component playerInventoryTitle;
 
+    @Shadow
+    protected abstract boolean isHovering(Slot slot, double xm, double ym);
+
     @Inject(method = "extractSlot(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/inventory/Slot;II)V", at = @At("HEAD"))
     private void smb$onExtractSlot(GuiGraphicsExtractor graphics, Slot slot, int mouseX, int mouseY, CallbackInfo ci) {
         // handle all rarity highlighting
-        if (slot.isActive() && this.isHovering(slot, mouseX, mouseY))
-            SBM.hoveredSlot = slot;
         ItemStack stack = slot.getItem();
         if (!stack.isEmpty())
-            sbm$highlighStack(graphics, slot, stack);
+            sum$highlightStack(graphics, slot, stack);
     }
-    private void sbm$highlighStack(GuiGraphicsExtractor graphics, Slot slot, ItemStack stack) {
+
+    @Unique
+    private void sum$highlightStack(GuiGraphicsExtractor graphics, Slot slot, ItemStack stack) {
         Rarity r = ItemStackUtils.getRarity(stack);
         if (r != null) {
             // top
+            int border_alpha = 0xaa000000;
             graphics.fill(slot.x, slot.y, slot.x + 16, slot.y + 1, r.color() | border_alpha);
             // bottom
             graphics.fill(slot.x, slot.y + 15, slot.x + 16, slot.y + 16, r.color() | border_alpha);
@@ -54,6 +48,7 @@ public abstract class AbstractContainerScreenMixin {
             graphics.fill(slot.x, slot.y + 1, slot.x + 1, slot.y + 15, r.color() | border_alpha);
             // right
             graphics.fill(slot.x + 15, slot.y + 1, slot.x + 16, slot.y + 15, r.color() | border_alpha);
+            int inner_alpha = 0x55000000;
             graphics.fill(slot.x + 1, slot.y + 1, slot.x + 15, slot.y + 15, r.color() | inner_alpha);
         }
     }

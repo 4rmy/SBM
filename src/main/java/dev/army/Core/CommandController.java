@@ -1,9 +1,7 @@
 package dev.army.Core;
 
-import com.mojang.authlib.minecraft.client.MinecraftClient;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 import dev.army.Features.Farming.FarmingCore;
-import dev.army.SBM;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommands;
 import net.minecraft.client.Minecraft;
@@ -12,12 +10,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CommandController {
     private static final Minecraft mc = Minecraft.getInstance();
 
     public static void init() {
-        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, _) -> {
             // all of skyblock
             dispatcher.register(
                     ClientCommands.literal("s").executes(_ -> {
@@ -51,21 +50,21 @@ public class CommandController {
             dispatcher.register(
                     ClientCommands.literal("setangle")
                             .then(ClientCommands.argument("pitch", FloatArgumentType.floatArg())
-                            .then(ClientCommands.argument("yaw", FloatArgumentType.floatArg())
-                            .executes(cmd -> {
-                                        float pitch = FloatArgumentType.getFloat(cmd, "pitch");
-                                        float yaw = FloatArgumentType.getFloat(cmd, "yaw");
+                                    .then(ClientCommands.argument("yaw", FloatArgumentType.floatArg())
+                                            .executes(cmd -> {
+                                                float pitch = FloatArgumentType.getFloat(cmd, "pitch");
+                                                float yaw = FloatArgumentType.getFloat(cmd, "yaw");
 
-                                        LocalPlayer player = mc.player;
-                                        if (player == null) return 0;
+                                                LocalPlayer player = mc.player;
+                                                if (player == null) return 0;
 
-                                        player.setXRot(yaw);
-                                        player.setYRot(pitch);
+                                                player.setXRot(yaw);
+                                                player.setYRot(pitch);
 
-                                        return 1;
-                                    })
+                                                return 1;
+                                            })
+                                    )
                             )
-                        )
             );
 
             // debug
@@ -84,30 +83,11 @@ public class CommandController {
 
                         System.out.println(" === ENTITIES");
                         for (Entity e : entities)
-                            System.out.println(e.getCustomName().getString());
+                            System.out.println(Objects.requireNonNull(e.getCustomName()).getString());
 
                         return 1;
                     })
             );
-            dispatcher.register(
-                    ClientCommands.literal("setheads")
-                            .executes(ctx -> {
-                                LocalPlayer player = Minecraft.getInstance().player;
-
-                                if (player == null) {
-                                    return 0;
-                                }
-
-                                player.getInventory().setItem(0, SBM.s1.copy());
-                                player.getInventory().setItem(1, SBM.s2.copy());
-                                player.getInventory().setItem(2, SBM.s3.copy());
-                                player.getInventory().setItem(3, SBM.s4.copy());
-
-                                return 1;
-                            })
-            );
-
-
         });
     }
 }

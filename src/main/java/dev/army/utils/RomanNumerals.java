@@ -4,22 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RomanNumerals {
-    public static int convert(String numerals) {
-        int length = numerals.length();
-        int result = 0;
-
-        for (int i = 0; i < length; i++) {
-            int current = values.getOrDefault(numerals.charAt(i), -1);
-            if (i < length-1 && current < values.getOrDefault(numerals.charAt(i+1), -1)) {
-                result -= current;
-            } else {
-                result += current;
-            }
-        }
-        return result;
-    }
-
-    private static final Map<Character, Integer> values = new HashMap<>(){{
+    private static final Map<Character, Integer> values = new HashMap<>() {{
         put('I', 1);
         put('V', 5);
         put('X', 10);
@@ -28,6 +13,21 @@ public class RomanNumerals {
         put('D', 500);
         put('M', 1000);
     }};
+
+    public static int convert(String numerals) {
+        int length = numerals.length();
+        int result = 0;
+
+        for (int i = 0; i < length; i++) {
+            int current = values.getOrDefault(numerals.charAt(i), -1);
+            if (i < length - 1 && current < values.getOrDefault(numerals.charAt(i + 1), -1)) {
+                result -= current;
+            } else {
+                result += current;
+            }
+        }
+        return result;
+    }
 
     // test cases
     static void main() {

@@ -37,17 +37,17 @@ public class CollectionsNumbers {
 
         if (!firstTier(slot)) {
             String[] name = slot.getItem().getDisplayName().getString().strip().split("\\s");
-            String numerals = name[name.length-1];
+            String numerals = name[name.length - 1];
             tier = RomanNumerals.convert(numerals);
         }
 
-        String text = String.valueOf(tier+1);
+        String text = String.valueOf(tier + 1);
 
         graphics.text(
                 mc.font,
                 text,
-                slot.x+17-mc.font.width(text),
-                slot.y+18-mc.font.lineHeight,
+                slot.x + 17 - mc.font.width(text),
+                slot.y + 18 - mc.font.lineHeight,
                 (isMaxed(slot)) ? 0xFF00FF00 : ((tier == -1) ? 0xFF555555 : 0xFFFFFF00)
         );
     }

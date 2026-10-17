@@ -3,7 +3,10 @@
     {
       "type": "ttf",
       "file": "skyblockmod:inter_variable.ttf",
-      "shift": [0, 0],
+      "shift": [
+        0,
+        0
+      ],
       "size": 11.0,
       "oversample": 2.0
     }

@@ -14,7 +14,8 @@
     "AbstractContainerScreenMixin",
     "GuiGraphicsExtractorMixin",
     "HudMixin",
-    "ScreenMixin",
-    "TitleScreenMixin"
+    "PlayerTabOverlayAccessor",
+    "PlayerTabOverlayMixin",
+    "ScreenMixin"
   ]
 }

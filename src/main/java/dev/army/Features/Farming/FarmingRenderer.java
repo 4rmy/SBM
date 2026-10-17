@@ -13,6 +13,9 @@ import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderContext;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.rendertype.*;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.item.PlayerHeadItem;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -99,14 +102,14 @@ public class FarmingRenderer {
         );
         assert mc.level != null;
         List<Entity> entities = mc.level.getEntities(mc.player, new AABB(rng.start(), rng.end())).stream()
-                .filter(e -> e.getCustomName() != null)
-                .filter(e -> e.getCustomName().getString().contains("❤"))
+                .filter(entity -> entity instanceof ArmorStand)
+                .filter(entity -> ((ArmorStand) entity).getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof PlayerHeadItem)
                 .toList();
 
         for (Entity e : entities) {
             pestShapes.add(Shapes.create(
-                    new AABB(e.position().subtract(.3, .3, .3),
-                            e.position().add(.3, .3, .3))
+                    new AABB(e.position().subtract(.3, -1.2, .3),
+                            e.position().add(.3, 1.8, .3))
             ));
         }
     }

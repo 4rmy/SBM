@@ -44,8 +44,8 @@ public class ExperimentationCore {
         // round
         Slot s4 = screen.getMenu().getSlot(4);
         String[] name = s4.getItem().getDisplayName().getString().strip().split("\\s");
-        String num = name[name.length-1];
-        int round = Integer.parseInt(num.substring(0, num.length()-1));
+        String num = name[name.length - 1];
+        int round = Integer.parseInt(num.substring(0, num.length() - 1));
 
         if (round == 13) {
             mc.gui.screen().onClose();

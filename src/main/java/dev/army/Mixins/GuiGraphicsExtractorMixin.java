@@ -10,6 +10,7 @@ import net.minecraft.world.item.TooltipFlag;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
@@ -20,8 +21,10 @@ import static dev.army.SBM.mc;
 
 @Mixin(GuiGraphicsExtractor.class)
 public abstract class GuiGraphicsExtractorMixin implements GuiGraphicsExtractorExt {
+    @Unique
     private static final Pattern PESTS_PATTERN = Pattern.compile("Vacuum Bag: (\\d+) Pests?");
 
+    @Unique
     private static @Nullable String getVacuumCount(ItemStack stack) {
         for (Component line : stack.getTooltipLines(
                 Item.TooltipContext.EMPTY,

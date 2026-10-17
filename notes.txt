@@ -1,0 +1,25 @@
+Possible Auto Fisher
+/*
+if (mc.level == null) return;
+if (mc.player == null) return;
+LocalPlayer lp = mc.player;
+if (lp.fishing == null) return;
+FishingHook bobber = lp.fishing;
+
+int y = 2;
+for (Entity e : mc.level.getEntitiesOfClass(
+        Entity.class,
+        new AABB(bobber.position().subtract(5,1,5), bobber.position().add(5,1,5))
+)) {
+    String name = e.getDisplayName().getString();
+    if (!name.contains("?") && !name.contains("!")) continue;
+    guiGraphicsExtractor.text(
+            mc.font,
+            e.getClass().getName() + ": " + e.getDisplayName().getString(),
+            2,
+            y,
+            0xFFFFFFFF
+    );
+    y += mc.font.lineHeight+2;
+}
+*/
