@@ -95,11 +95,15 @@ public class FarmingRenderer {
         if (!TablistParser.getArea().equals("garden")) return;
         pestShapes.clear();
         assert mc.player != null;
-        FarmingCore.PosRange rng = FarmingCore.cordToPos(
-                FarmingCore.posToCord(
-                        mc.player.position()
-                )
+        FarmingCore.Cord cord = FarmingCore.posToCord(
+                mc.player.position()
         );
+        if (cord.equals(new FarmingCore.Cord(2,2))) return;
+
+        FarmingCore.PosRange rng = FarmingCore.cordToPos(
+                cord
+        );
+
         assert mc.level != null;
         List<Entity> entities = mc.level.getEntities(mc.player, new AABB(rng.start(), rng.end())).stream()
                 .filter(entity -> entity instanceof ArmorStand)
