@@ -6,9 +6,11 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.item.PlayerHeadItem;
 
 import javax.swing.text.html.parser.Entity;
 import java.util.List;
@@ -40,7 +42,10 @@ public class KeyMappingController {
                     .stream()
                     .filter(entity -> entity.distanceToSqr(player) <= 20 * 20)
                     .filter(entity -> entity instanceof ArmorStand)
-                    .forEach(entity -> System.out.println(((ArmorStand) entity).getItemBySlot(EquipmentSlot.HEAD)));
+                    .filter(entity -> ((ArmorStand) entity).getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof PlayerHeadItem)
+                    .forEach(entity ->
+                                    System.out.println(((ArmorStand)entity).position())
+                            );
         }
     }
 }

@@ -108,6 +108,19 @@ public class FarmingRenderer {
         List<Entity> entities = mc.level.getEntities(mc.player, new AABB(rng.start(), rng.end())).stream()
                 .filter(entity -> entity instanceof ArmorStand)
                 .filter(entity -> ((ArmorStand) entity).getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof PlayerHeadItem)
+                .filter(entity -> {
+                    double x = entity.getX();
+                    double y = entity.getY();
+                    double z = entity.getZ();
+
+                    double dx = Math.abs(x * 64.0 - Math.round(x * 64.0)) / 64.0;
+                    double dy = Math.abs(y * 64.0 - Math.round(y * 64.0)) / 64.0;
+                    double dz = Math.abs(z * 64.0 - Math.round(z * 64.0)) / 64.0;
+
+                    double score = Math.max(dx, Math.max(dy, dz));
+
+                    return score > 0.001;
+                })
                 .toList();
 
         for (Entity e : entities) {

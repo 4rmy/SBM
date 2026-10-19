@@ -1,5 +1,6 @@
 package dev.army.Features.Huds;
 
+import dev.army.Core.HudController;
 import dev.army.Core.TimingController;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;

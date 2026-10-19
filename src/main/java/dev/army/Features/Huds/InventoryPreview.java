@@ -1,5 +1,6 @@
 package dev.army.Features.Huds;
 
+import dev.army.Core.HudController;
 import dev.army.utils.ItemStackUtils;
 import dev.army.utils.Rarity;
 import net.minecraft.client.DeltaTracker;

@@ -3,6 +3,8 @@ package dev.army.Features.Farming;
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.army.Core.HudController;
 import dev.army.Core.TablistParser;
+import dev.army.Features.ChocolateFactory.ChocoFactoryController;
+import dev.army.Features.FeatureCore;
 import dev.army.SBM;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
@@ -13,7 +15,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.HashMap;
 
-public class FarmingCore {
+public class FarmingCore implements FeatureCore {
     public static final HashMap<Integer, Cord> grid = new HashMap<>() {{
         put(21, new Cord(0, 0)); // top left plot
         put(13, new Cord(1, 0));
@@ -92,8 +94,9 @@ public class FarmingCore {
         });
     }
 
-    public static void init() {
-        instance = new FarmingCore();
+    @Override
+    public void init() {
+        instance = this;
         HudController.registerObjective(new FarmingHud());
     }
 

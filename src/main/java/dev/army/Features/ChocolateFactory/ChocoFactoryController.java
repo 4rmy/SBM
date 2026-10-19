@@ -1,5 +1,7 @@
 package dev.army.Features.ChocolateFactory;
 
+import dev.army.Features.FeatureCore;
+import dev.army.SBM;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
@@ -10,7 +12,7 @@ import net.minecraft.world.item.TooltipFlag;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChocoFactoryController {
+public class ChocoFactoryController implements FeatureCore {
     private static final Minecraft mc = Minecraft.getInstance();
 
     private static final int IMAGE_WIDTH = 176;
@@ -88,6 +90,9 @@ public class ChocoFactoryController {
             first = false;
         }
     }
+
+    @Override
+    public void init() {}
 
     private record Employee(Slot slot, int delta, int cost) implements Comparable<Employee> {
         @Override

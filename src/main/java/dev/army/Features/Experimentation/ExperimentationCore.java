@@ -1,5 +1,8 @@
 package dev.army.Features.Experimentation;
 
+import dev.army.Features.ChocolateFactory.ChocoFactoryController;
+import dev.army.Features.FeatureCore;
+import dev.army.SBM;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
@@ -7,7 +10,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-public class ExperimentationCore {
+public class ExperimentationCore implements FeatureCore {
     private static final Minecraft mc = Minecraft.getInstance();
 
     public static void extractSlot(GuiGraphicsExtractor graphics, Slot slot) {
@@ -52,4 +55,7 @@ public class ExperimentationCore {
             ci.cancel();
         }
     }
+
+    @Override
+    public void init() {}
 }
