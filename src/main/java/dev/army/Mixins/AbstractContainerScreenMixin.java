@@ -58,12 +58,21 @@ public abstract class AbstractContainerScreenMixin {
         ExperimentationCore.preProcess(graphics, ci);
     }
 
+    @Inject(method = "extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V", at = @At("TAIL"), cancellable = true)
+    private void sbm$finishedState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
+        ExperimentationCore.postProcess(graphics, ci);
+    }
+
     @Inject(method = "extractSlot(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/inventory/Slot;II)V", at = @At("TAIL"))
     private void sbm$onExtractSlotTail(GuiGraphicsExtractor graphics, Slot slot, int mouseX, int mouseY, CallbackInfo ci) {
         CollectionsNumbers.extractSlot(graphics, slot);
         ExperimentationCore.extractSlot(graphics, slot);
     }
 
+    @Inject(method = "onClose()V", at = @At("HEAD"))
+    private void sbm$onClose(CallbackInfo ci) {
+        ExperimentationCore.onClose();
+    }
 
     @Inject(method = "extractFloatingItem", at = @At("HEAD"))
     private void smb$onExtractFloatingItem(GuiGraphicsExtractor graphics, ItemStack stack, int x, int y, String text, CallbackInfo ci) {

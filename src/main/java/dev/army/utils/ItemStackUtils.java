@@ -17,7 +17,7 @@ public class ItemStackUtils {
                 Item.TooltipContext.EMPTY,
                 mc.player,
                 TooltipFlag.NORMAL
-        );
+        ).reversed();
 
         if (tooltip.isEmpty()) {
             return null;
@@ -25,7 +25,7 @@ public class ItemStackUtils {
 
         for (Component c : tooltip) {
             for (Rarity rarity : Rarity.values()) {
-                if (c.getString().startsWith(rarity.name().toUpperCase())) {
+                if (c.getString().contains(rarity.name().toUpperCase())) {
                     return rarity;
                 }
             }

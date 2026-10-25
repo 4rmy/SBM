@@ -1,8 +1,8 @@
 package dev.army.utils;
 
 public enum Rarity {
-    Common, // white
     Uncommon, // green
+    Common, // white
     Rare, // blue
     Epic, // purple
     Legendary, // gold

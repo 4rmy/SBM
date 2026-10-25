@@ -29,7 +29,7 @@ public class SBM implements ModInitializer {
         return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 
-    private static LinkedList<FeatureCore> features = new LinkedList<>();
+    private static final LinkedList<FeatureCore> features = new LinkedList<>();
     public static void addFeature(FeatureCore feature) {
         features.add(feature);
         feature.init();
